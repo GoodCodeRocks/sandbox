@@ -72,10 +72,6 @@ class Requisition extends CI_Controller
 		$this->load->view('template/main_template',$data);
 	}
 	
-	function detail() {
-		$data['content'] = 'requisition/requisition_details_v';
-		$this->load->view('template/main_template',$data);
-	}
 	
 	public function listall() {
 		
@@ -121,6 +117,16 @@ class Requisition extends CI_Controller
 		$this->load->view('template/main_template',$data);
 	}
 	
+	
+	function detail() {
+		
+		$data['info'] = $this->uri->segment(3);
+		$data['content'] = 'requisition/requisition_details_v';
+		
+		/* Returns requisition info related to specified requisition */
+		$data['Details'] = $this->Sandbox->getRequisitionInfo($data['info']);
+		$this->load->view('template/main_template',$data);
+	}
 	
 	
 }

@@ -96,7 +96,7 @@
 				where a.id =  $department_id ";
       	
       	$result = $this->db->query($sql)->result_array();
-      	echo $sql;
+      	//echo $sql;
       	// generate the steps based on the number of steps for department type
       	
       	 foreach ($result as $row ) {
@@ -162,7 +162,7 @@
       	
       	// processed
       	
-      	echo $sql;
+      	//echo $sql;
       	
       	return $this->db->query($sql)->result_array();
       
@@ -223,6 +223,18 @@
       function getType(){
       	
       	$sql = " select * from requisition_type";
+      	
+      	return $this->db->query($sql)->result_array();
+      }
+      
+      //return all data on specific requisition
+      function getRequisitionInfo($info){
+      	$sql = "select a.id, a.requisition_no, b.name as Department, d.name
+      	from requisition a
+      	join department b on b.id = a.department_id
+      	join requisition_steps c on c.id = a.requisition_step_id
+      	join steps d on d.id = c.step_id
+      	where a.id = $info";
       	
       	return $this->db->query($sql)->result_array();
       }
