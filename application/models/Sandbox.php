@@ -45,7 +45,7 @@
                     where department_id = $department_id ";
 
             $result = $this->db->query($sql)->result_array();
-            echo $sql;
+            //echo $sql;
             // generate the steps based on the number of steps for department type
             foreach ($result as $row ) {
                 $step_id = $row['step_id'];
