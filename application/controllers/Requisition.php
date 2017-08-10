@@ -4,6 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Requisition extends CI_Controller
 {
+	private $user_id = 79;
 	//put your code here
 	public function __construct() {
 		parent::__construct();
@@ -21,7 +22,7 @@ class Requisition extends CI_Controller
 	public function form() {
 		
 		
-		$data['User'] = 73;
+		$data['User'] = $this->user_id;
 		$data['content'] = 'requisition/new_requisition_v';
 		
 		$data['RequisitionTypes'] = $this->Sandbox->getType();
@@ -54,11 +55,20 @@ class Requisition extends CI_Controller
 	
 	public function pending() {
 		//$this->load->view('users/my_requisition_v');
-		$data['User'] = 73;
+		$data['User'] = $this->user_id;
 		
 		$data['UserRoles']= $this->Sandbox->getUserRoles($data['User']);
 		$data['Requisitions'] = $this->Sandbox->getRequisitions($data['User']);
 		$data['content'] = 'requisition/pending_requisitions_v';
+		$this->load->view('template/main_template',$data);
+	}
+	
+	public function processed() {
+		//$this->load->view('users/my_requisition_v');
+		$data['User'] = $this->user_id;
+		
+		$data['Requisitions'] = $this->Sandbox->getRequisitions($data['User'], true );
+		$data['content'] = 'requisition/processed_requisitions_v';
 		$this->load->view('template/main_template',$data);
 	}
 	

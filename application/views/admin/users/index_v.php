@@ -9,7 +9,7 @@
 	<table class="table">
 		<thead>
 			<tr>
-				
+				<th>ID</th>
 				<th>Username</th>
 				<th>First</th>
 				<th>Last</th>
@@ -21,7 +21,8 @@
 		</thead>
 		<tbody>
 				<?php foreach ($Users as $user) { ?>
-					<tr> 
+					<tr>
+						<td><?=$user['id']?> </td> 
 						<td><?=$user['username']?> </td>
 						<td><?=$user['first_name']?> </td>
 						<td><?=$user['last_name']?> </td>

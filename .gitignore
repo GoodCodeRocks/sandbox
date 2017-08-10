@@ -23,6 +23,7 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 .buildpath
 license.txt
 readme.rst
+.project
 
 # IDE Files
 #-------------------------

@@ -96,10 +96,10 @@
 				where a.id =  $department_id ";
       	
       	$result = $this->db->query($sql)->result_array();
-      	// echo $sql;
+      	echo $sql;
       	// generate the steps based on the number of steps for department type
       	
-      	foreach ($result as $row ) {
+      	 foreach ($result as $row ) {
       		
       		$step_id = $row['step_id'];
       		$role_id = $row['role_id'];
@@ -122,17 +122,20 @@
         
         $sql = " update requisition set requisition_step_id =  $requisition_step_id where id = $requisition_id ";
       	
-        $this->db->query($sql);
+        $this->db->query($sql); 
       	
       }
       
-      function getRequisitions($user_id) {
+      function getRequisitions($user_id,$view = null) {
       	
       	$department_ids = $this->getUserDepartmentsIds($user_id);
       	//echo $department_ids."<br/>";
       	$role_ids = $this->getUserRoles($user_id);
       	//echo $role_ids;
-      	/* */
+      	
+      	
+      	
+      	// pending
       	$sql = " select a.id
 				, a.requisition_no
 				, a.user_id
@@ -146,20 +149,26 @@
 				, c.name as department_name
 				, b.role_id
 				, b.user_id
-				
+				, case  when b.user_id is null then 'pending' 
+						when b.user_id is not null then 'processed' end as step_status
+
 				from requisition a 
-				join requisition_steps b on b.requisition_id = a.id and a.requisition_step_id = b.id
+				left join requisition_steps b on b.requisition_id = a.id and a.requisition_step_id = b.id
 				join department c on c.id = a.department_id
 
 				where 
 					
-				a.department_id in ($department_ids) and b.role_id in ($role_ids)  ";
+				a.department_id in ($department_ids) and b.role_id in ($role_ids) or b.role_id not in ($role_ids) ";
       	
-      	//echo $sql;
+      	// processed
+      	
+      	echo $sql;
       	
       	return $this->db->query($sql)->result_array();
       
       }
+      
+
       
       // return user department ids so that it can be used in other 
       // places in the application

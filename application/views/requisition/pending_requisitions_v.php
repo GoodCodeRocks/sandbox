@@ -3,7 +3,7 @@
 			
 			
 				<div class="panel panel-default row">
-					<div class="panel-heading"><h3>Pending Requisitions</h3></div>
+					<div class="panel-heading"><h3>Pending Requisitions <?php echo $User; ?></h3></div>
 					<div class="panel-body">
             	<div>
 	            <table class=" table table-striped table-hover table-bordered" style="Width:100%; height: 100%;">
@@ -15,6 +15,9 @@
 							<th> </th>
 						</tr>
 						<?php foreach ($Requisitions as $requisition) { ?>
+						
+							<?php  if( $requisition['step_status'] =='pending' ) { ?>
+						
 							<tr>
 								<td> <?=$requisition['requisition_no'] ?> </td>
 								<td> <?=$requisition['department_name'] ?> </td>
@@ -22,10 +25,11 @@
 								<td> <?=$requisition['step'] ?> </td>
 								<td>
 									<?=anchor('requisition/detail/'.$requisition['id'],'<button type="submit" class="btn-xs btn-success">View</button>')?>
-								
 								</td>
 							</tr>
-						<?php } ?>
+							
+							<?php } ?>
+						<?php  } ?>
 						
 					</table>
 					</div>
