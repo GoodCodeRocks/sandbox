@@ -228,16 +228,134 @@
       }
       
       //return all data on specific requisition
-      function getRequisitionInfo($info){
-      	$sql = "select a.id, a.requisition_no, b.name as Department, d.name
+      function getRequisitionDetails($info){
+      	$sql = "select a.id, a.requisition_no, b.name as Department, d.name, e.file_name, e.file_path
       	from requisition a
       	join department b on b.id = a.department_id
       	join requisition_steps c on c.id = a.requisition_step_id
       	join steps d on d.id = c.step_id
+		left join purchase_order e on e.requisition_id = a.id
       	where a.id = $info";
       	
       	return $this->db->query($sql)->result_array();
       }
+      
+      //return information on next person to process requisition
+      function getrequisitionprocessingdetails($info){
+      	//try {
+	      	$sql ="select concat(e.last_name,', ', e.first_name ) as user, b.name as department, c.name as position				
+					from requisition_steps a
+					join department b on b.id = a.department_id
+					join role c on c.id = a.role_id
+					join user_role d on d.role_id = c.id
+					join users e on e.id = d.user_id
+					where a.id = (select @requisition_step_id:=requisition_step_id as requisition_step_id
+							from requisition
+							where id = $info) and c.step_id = a.step_id";
+	    
+	      	return $this->db->query($sql)->result_array();
+      //	} catch (Exception $e){
+      //		return $e;
+      	//}
+      }
+      //return information on next person to process requisition
+      function getrequisitionprocessdetails($info){
+      	//try {
+      	$sql ="select * from requisition_steps_view
+      	where requisition_id = $info";
+      	
+      	return $this->db->query($sql)->result_array();
+      	//	} catch (Exception $e){
+      	//		return $e;
+      	//}
+      }
+      
+      
+      //return information on last person to process requisition
+      function getrequisitionprocessedbydetails($info){
+      	$sql ="select concat(e.first_name,' ',e.last_name) as user, c.name as position, b.name as step
+				,  g.name as department, h.status, a.approved_at
+				from requisition_steps a
+				join steps b on b.id = a.step_id
+				join role c on c.step_id = b.id
+				join user_role d on d.role_id = c.id
+				join users e on e.id = d.user_id
+				join users_department f on f.users_id = e.id
+				join department g on g.id = f.department_id
+				join approval_status h on h.id = a.approval_status_id
+				where a.id = (select requisition_step_id 
+				from requisition
+				where id = $info) - 1 and a.department_id=f.department_id;";
+      	return $this->db->query($sql)->result_array();
+      }
+      
+      //return all requisition Types
+      function getcategory(){
+      	
+      	$sql = " select * from category";
+      	
+      	return $this->db->query($sql)->result_array();
+      }
+      
+      /* Add Item to Requisition */
+      function add_Item($clean)
+      {
+      	//Insert list of requisition items into Items Table
+      	$date = date('y-m-d G:i:s');
+      	$req_item =array(
+      			'description'=>$clean['itemname'],
+      			'create_time'=> $date,
+      			'unit_cost'=>$clean['unitcost'],
+      			'quantity'=>$clean['quantity'],
+      			'cumulative_cost'=>$clean['cumulativecost'],
+      			'category_id'=>$clean['itemcategory'],
+      			'requisition_id'=>$clean['requisitionid'],
+      	);
+      	$r = $this->db->insert_string('requisition_items',$req_item);
+      	$this->db->query($r);
+      	
+      }
+      
+      //return all items attached to specific requisition
+      function getrequisitionitems($info){
+      	$sql ="select a.description, a.quantity, a.unit_cost, a.cumulative_cost, b.category_name
+				from requisition_items a 
+				join category b on b.id = a.category_id
+				where a.requisition_id = $info";
+      	
+      	return $this->db->query($sql)->result_array();
+      }
+      
+      //Insert Requisition information 
+      function insert_Invoice($invoice)
+      {
+      	
+      	$data = $invoice['file'];
+      	//var_dump($data, $invoice['requisitionid']);
+      	$date = date('y-m-d G:i:s');
+      	//Insert filepath into purchase_order Table
+      	$purOrd =array(
+      			
+      			'file_path'=>$data['full_path'],
+      			'file_name'=>$data['file_name'],
+      			'requisition_id' =>$invoice['requisitionid'],
+      			'Create_time'=> $date
+      	);
+      	
+      	$s = $this->db->insert_string('purchase_order',$purOrd);
+      	$this->db->query($s);
+      	
+      }
+      
+      //get purchaseorder details
+      function getPurchaseOrder($id){
+      	$sql ="";
+      	$sql .="Select *
+ 				from purchase_order
+ 				where requisition_id =$id";
+      	return $this->db->query($sql)->result_array();
+      }
+      
 
   }
 

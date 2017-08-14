@@ -4,20 +4,18 @@
 					<div class="panel-heading"><h3>My Requisitions</h3></div>
 					<div class="panel-body">
             			<div class="row">
-            			<?php //foreach ($Details as $detail) { ?>
             				<div class="col-md-4">
             					<label for="requisitionnumber">Requisition Number:</label>
-				            		<input type="text" class="form-control" value="<?=$Details['requisition_no'] ?>">
+				            		<input type="text" class="form-control" value="20170704-103134-aZs0le">
             				</div>
             				<div class="col-md-4">
             					<label for="department">Department</label>
-				            		<input type="text" class="form-control" value="<?=$Details['Department'] ?>">
+				            		<input type="text" class="form-control" value="Information Technology">
             				</div>
             				<div class="col-md-4">
-            					<label for="step">Step:</label>
-				            		<input type="text" class="form-control" value="<?=$Details['name'] ?>">
+            					<label for="createdby">Created By:</label>
+				            		<input type="text" class="form-control" value="Niall Edwards">
             				</div>
-            			<?php //}?>
 						</div>
 						<hr>
 						<div class="row" id="tabs">

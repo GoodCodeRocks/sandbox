@@ -10,6 +10,7 @@ class Requisition extends CI_Controller
 		parent::__construct();
 		$this->load->model('Requisition_Model','rm');
 		$this->load->model('Sandbox','Sandbox');
+		$this->output->enable_profiler(TRUE);
 		
 	}
 	
@@ -118,15 +119,74 @@ class Requisition extends CI_Controller
 	}
 	
 	
-	function detail() {
+	function detail($requisitionid = Null) {
 		
-		$data['info'] = $this->uri->segment(3);
+		if($this->uri->segment(3) == NULL)
+		{
+			$data['info'] = $requisitionid;
+		}
+		else {
+			$data['info'] = $this->uri->segment(3);
+		}
 		$data['content'] = 'requisition/requisition_details_v';
 		
 		/* Returns requisition info related to specified requisition */
-		$data['Details'] = $this->Sandbox->getRequisitionInfo($data['info']);
+		$data['details'] = $this->Sandbox->getRequisitionDetails($data['info']);
+		$data['toProcess'] = $this->Sandbox->getrequisitionprocessingdetails($data['info']);
+		$data['processedBy'] = $this->Sandbox->getrequisitionprocessdetails($data['info']);
+		$data['Items'] = $this->Sandbox->getrequisitionitems($data['info']);
+		$data['Category'] = $this->Sandbox->getcategory();
 		$this->load->view('template/main_template',$data);
 	}
 	
+	/* Add New Item to Requisition */
+	public function add_Item() {
+		
+		$clean = $this->security->xss_clean($this->input->post(NULL, TRUE));
+		$this->Sandbox->add_Item($clean);
+
+		$this->detail($clean['requisitionid']);
+		
+	}
+	
+	/* Upload and assign Invoice to requisition */
+	public function purchaseOrder_upload() {
+		$path = base_url().'assets/uploads/';
+		is_dir($path);
+		is_writable($path);
+		$config['upload_path'] = './assets/uploads/';
+		$config['allowed_types'] = 'gif|jpg|png|pdf';
+		
+		
+		$this->upload->initialize($config);
+		if ( !$this->upload->do_upload('purord'))
+		{
+			$error = array('error' => $this->upload->display_errors());
+		}
+		else
+		{
+			$clean = $this->security->xss_clean($this->input->post(NULL, TRUE));
+			$pOrder['file'] = $this->upload->data();
+			$pOrder['requisitionid'] = $clean['requisitionid'];
+			$this->Sandbox->insert_Invoice($pOrder);
+			$this->detail();
+		}
+	}
+	
+	//File Download
+	function download(){
+		
+		$id = $this->uri->segment(3);
+		
+		$data = $this->Sandbox->getPurchaseOrder($id);
+		
+		//var_dump($data);
+		$path = $data[0]['file_path'];
+		$contents = file_get_contents($path);
+		$name = $data[0]['file_name'];
+		
+		force_download($path, $contents);
+		
+	}
 	
 }
