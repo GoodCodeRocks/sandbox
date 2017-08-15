@@ -180,12 +180,11 @@ class Requisition extends CI_Controller
 		
 		$data = $this->Sandbox->getPurchaseOrder($id);
 		
-		//var_dump($data);
 		$path = $data[0]['file_path'];
 		$contents = file_get_contents($path);
 		$name = $data[0]['file_name'];
 		
-		force_download($path, $contents);
+		force_download($name, $contents);
 		
 	}
 	
