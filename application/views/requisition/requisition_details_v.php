@@ -44,6 +44,7 @@ $(document).ready(function() {
 								<li><a href="#tabs-status">Status</a></li>
 								<li><a href="#tabs-items">Items</a></li>
 							    <li><a href="#tabs-invoice">Invoice</a></li>
+							    <li><a href="#tabs-finance">Finance</a></li>
 							</ul>
 							<div class="row"  id="tabs-status">
 								<div class="col-md-10 col-md-offset-1">
@@ -80,7 +81,7 @@ $(document).ready(function() {
 										<?php foreach ($Category as $category) {?>
 											 <option value="<?php echo $category['id']; ?>"><?php echo $category['category_name']; ?></option>
 											<?php }?>
-											</select>
+										</select>
 				            	</div>
 				            	<div class="col-md-6">
 		            				<label for="quantity">Quantity:</label>
@@ -141,6 +142,41 @@ $(document).ready(function() {
 								</div>
 								<?php echo form_close(); }?>
 						  	</div>
+						  	<div id="tabs-finance">
+							<?=form_open('requisition/process/', array('class' => 'form-horizontal'));?>
+							<div class="col-md-6">
+	            					<label for="itemname">Finance Code:</label>
+					            		<input type="text" class="form-control" name="itemname" value="">
+				            	</div>
+							    
+				            	<div class="col-md-6">
+	            					<label for="itemcategory">Payment Method:</label>
+		            					<select name="paymentmethod" id="paymentmethod" class="form-control">
+								            <option value="" disabled selected>Please Select One</option>
+								            <option value="">Petty Cash</option>
+								            <option value="">TT Cheque</option>
+								            <option value="">Purchase Order</option>
+								            <option value="">Wire Transfer</option>
+								            <option value="">Bank Draft</option>
+										</select>
+				            	</div>
+				            	<div class="col-md-6">
+	            					<label for="itemname">Bank Account:</label>
+					            		<input type="text" class="form-control" name="itemname" value="">
+				            	</div>
+				            	<div class="col-md-6">
+	            					<label for="itemname">Charge Account:</label>
+					            		<input type="text" class="form-control" name="itemname" value="">
+				            	</div>
+				            	
+				            	<div class="row"></div>
+					            <hr>
+					            <div class=" col-md-2 col-md-offset-10">
+									<button type="submit" class="btn-xs btn-success">Save</button>
+				            		<button type="submit" class="btn-xs btn-danger">Cancel</button>
+			            		</div>
+					        <?=form_close();?>
+							</div>
 						</div>
 						
 						<hr>
