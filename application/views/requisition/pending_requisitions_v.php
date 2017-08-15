@@ -16,20 +16,18 @@
 						</tr>
 						<?php foreach ($Requisitions as $requisition) { ?>
 						
-							<?php  if( $requisition['step_status'] =='pending' ) { ?>
-						
 							<tr>
 								<td> <?=$requisition['requisition_no'] ?> </td>
 								<td> <?=$requisition['department_name'] ?> </td>
 								<td> <?=$requisition['created_at'] ?> </td>
-								<td> <?=$requisition['step'] ?> </td>
+								<td> <?=$requisition['step'] ?> / <?=$requisition['total_steps'] ?> </td>
 								<td>
 									<?=anchor('requisition/detail/'.$requisition['id'],'<button type="submit" class="btn-xs btn-success">View</button>')?>
 								</td>
 							</tr>
 							
-							<?php } ?>
-						<?php  } ?>
+						<?php } ?>
+						
 						
 					</table>
 					</div>

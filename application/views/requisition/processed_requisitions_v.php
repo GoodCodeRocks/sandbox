@@ -15,14 +15,13 @@
 							<th> </th>
 						</tr>
 						<?php foreach ($Requisitions as $requisition) { ?>
-						
-							<?php if( $requisition['step_status'] =='processed' ) { ?>
-						
-							<tr>
+						    <tr>
 								<td> <?=$requisition['requisition_no'] ?> </td>
 								<td> <?=$requisition['department_name'] ?> </td>
 								<td> <?=$requisition['created_at'] ?> </td>
-								<td> <?=$requisition['step'] ?> </td>
+								<td> <?=$requisition['step'] ?> of <?=$requisition['total_steps'] ?> 
+									 <?=$requisition['finance_approved'] ?> 
+								</td>
 								<td>
 									<?=anchor('requisition/detail/'.$requisition['id'],'<button type="submit" class="btn-xs btn-success">View</button>')?>
 								
@@ -30,7 +29,7 @@
 							</tr>
 							
 							<?php } ?>
-						<?php } ?>
+						
 						
 					</table>
 					</div>

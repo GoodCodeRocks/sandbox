@@ -18,16 +18,20 @@ class Steps_Model extends CI_Model {
 		$step = $data['step'];
 		$name = $data['name'];
 		$is_academic = $data['academic'];
-		$is_enabeled = $data['enabled'] ? $data['enabled'] : 0 ;
+		$is_finance = $data['finance'];
+		$is_enabelled = $data['enabled'] ? $data['enabled'] : 0 ;
 		
 		
 		if($step_id == null || $step_id == "") {
 		
-			$sql = " insert into steps (step, name, is_academic, is_enabled ) values ($step,'".$name."',$is_academic, $is_enabeled ) ";
+			$sql = " insert into steps (step, name, is_academic, is_enabled, is_finance ) 
+					 values ($step,'".$name."',$is_academic, $is_enabeled, $is_finance ) ";
 				
 		} else {
 			
-			$sql = " update steps set step = $step, name = '".$name."', is_academic = $is_academic, is_enabled = $is_enabeled where id = $step_id ";
+			$sql = " update steps set step = $step, name = '".$name."', is_academic = $is_academic, is_enabled = $is_enabelled
+					 , is_finance = $is_finance
+					 where id = $step_id ";
 			
 		}
 		

@@ -4,53 +4,38 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Requisition extends CI_Controller
 {
-	private $user_id = 79;
+	private $user_id =83;
 	//put your code here
 	public function __construct() {
 		parent::__construct();
 		$this->load->model('Requisition_Model','rm');
 		$this->load->model('Sandbox','Sandbox');
+		$this->output->enable_profiler(TRUE);
 		
 	}
-	
 	
 	public function index() {
 		$this->listall();
-		
 	}
 	
 	public function form() {
-		
-		
 		$data['User'] = $this->user_id;
 		$data['content'] = 'requisition/new_requisition_v';
-		
 		$data['RequisitionTypes'] = $this->Sandbox->getType();
-		
-		
 		/* Returns all departments user is assigned */
 		$data['Departments'] = $this->Sandbox->getUserDepartments($data['User']);
-		
 		$this->load->view('template/main_template',$data);
 	}
 	
 	
 	public function save() {
-		
 		if ($this->form_validation->run('requisition') == FALSE) {
-			
 			$this->form();
-			
 		} else {
-			
 			$data = $_POST;
-			
 			$this->Sandbox->save($data);
-			
-			redirect('requisition/pending','location');
-			
+			//redirect('requisition/pending','location');
 		}
-		
 	}
 	
 	public function pending() {
@@ -67,11 +52,21 @@ class Requisition extends CI_Controller
 		//$this->load->view('users/my_requisition_v');
 		$data['User'] = $this->user_id;
 		
-		$data['Requisitions'] = $this->Sandbox->getRequisitions($data['User'], true );
+		$data['Requisitions'] = $this->Sandbox->getProcessedRequisitions($data['User'], true );
 		$data['content'] = 'requisition/processed_requisitions_v';
 		$this->load->view('template/main_template',$data);
 	}
 	
+	public function approved() {
+
+		//$this->load->view('users/my_requisition_v');
+		$data['User'] = $this->user_id;
+		
+		$data['Requisitions'] = $this->Sandbox->getProcessedRequisitions($data['User'], true );
+		$data['content'] = 'requisition/approved_requisitions_v';
+		$this->load->view('template/main_template',$data);
+	}
+
 	function detail() {
 		$data['content'] = 'requisition/requisition_details_v';
 		$this->load->view('template/main_template',$data);

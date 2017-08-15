@@ -82,7 +82,7 @@
 			            		
 			            		<li><a href="<?= base_url('requisition/pending'); ?>">Pending <span class="label label-warning">42</span></a></li>
 			            		<li><a href="<?= base_url('requisition/processed'); ?>">Processed <span class="label label-success">42</span></a></li>
-			            		<li><a href="<?= base_url('index.php/welcome/approvedRequisition'); ?>">Approved <span class="label label-danger">42</span></a></li>
+			            		<li><a href="<?= base_url('requisition/approved'); ?>">Approved <span class="label label-danger">42</span></a></li>
 			            		<li><a href="<?= base_url('requisition/form'); ?>">New Requisition</a></li>
 			            		<li><a href="<?= base_url('index.php/welcome/history'); ?>">Reports</a></li>
 			            	</ul>
@@ -100,6 +100,7 @@
 	            		<li><a href="<?= base_url('index.php/welcome/managePayees'); ?>">Manage Payees</a></li>
 	            		<li><a href="#">Manage Admins</a></li>
 	            		<li><a href="<?= base_url('index.php/welcome/manageProcesses'); ?>">Manage Processes</a></li>
+						<li><a href="<?= base_url('admin/steps'); ?>">Manage Steps</a></li>
 	            		<li><a href="<?= base_url('admin/roles'); ?>">Manage Roles</a></li>
 	            	</ul>
 	            	</div>

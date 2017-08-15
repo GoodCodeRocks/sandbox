@@ -19,7 +19,7 @@ class Steps extends CI_Controller {
 		
 		$data['content'] = 'admin/steps/index_v';
 		
-		$this->load->view('template',$data);
+		$this->load->view('template/main_template',$data);
 	}
 	
 	function form() {
@@ -29,6 +29,7 @@ class Steps extends CI_Controller {
 		$data['step'] = "";
 		$data['name'] = "";
 		$data['is_academic'] = "";
+		$data['is_finance'] = "";
 		$data['enabled'] = "";
 		$data['sid'] = ""; 
 		
@@ -42,13 +43,14 @@ class Steps extends CI_Controller {
 			$data['step'] = $row[0]['step'];
 			$data['name'] = $row[0]['name'];
 			$data['is_academic'] = $row[0]['is_academic'];
+			$data['is_finance'] = $row[0]['is_finance'];
 			$data['enabled'] = $row[0]['is_enabled']; 
 			
 		}
 		
 		$data['content'] = 'admin/steps/form_v';
 		
-		$this->load->view('template',$data);
+		$this->load->view('template/main_template',$data);
 		
 	}
 	

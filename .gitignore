@@ -24,6 +24,7 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 license.txt
 readme.rst
 .project
+/application/controllers/Registration_.php
 
 # IDE Files
 #-------------------------
