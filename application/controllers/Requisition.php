@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Requisition extends CI_Controller
 {
-	private $user_id =83;
+	private $user_id =79;
 	//put your code here
 	public function __construct() {
 		parent::__construct();
@@ -56,7 +56,7 @@ class Requisition extends CI_Controller
 		$data['content'] = 'requisition/processed_requisitions_v';
 		$this->load->view('template/main_template',$data);
 	}
-	
+
 	public function approved() {
 
 		//$this->load->view('users/my_requisition_v');
@@ -67,11 +67,6 @@ class Requisition extends CI_Controller
 		$this->load->view('template/main_template',$data);
 	}
 
-	function detail() {
-		$data['content'] = 'requisition/requisition_details_v';
-		$this->load->view('template/main_template',$data);
-	}
-	
 	public function listall() {
 		
 		/*
@@ -117,5 +112,74 @@ class Requisition extends CI_Controller
 	}
 	
 	
+	function detail($requisitionid = Null) {
+		
+		if($this->uri->segment(3) == NULL)
+		{
+			$data['info'] = $requisitionid;
+		}
+		else {
+			$data['info'] = $this->uri->segment(3);
+		}
+		$data['content'] = 'requisition/requisition_details_v';
+		
+		/* Returns requisition info related to specified requisition */
+		$data['details'] = $this->Sandbox->getRequisitionDetails($data['info']);
+		$data['toProcess'] = $this->Sandbox->getrequisitionprocessingdetails($data['info']);
+		$data['processedBy'] = $this->Sandbox->getrequisitionprocessdetails($data['info']);
+		$data['Items'] = $this->Sandbox->getrequisitionitems($data['info']);
+		$data['Category'] = $this->Sandbox->getcategory();
+		$this->load->view('template/main_template',$data);
+	}
+	
+	/* Add New Item to Requisition */
+	public function add_Item() {
+		
+		$clean = $this->security->xss_clean($this->input->post(NULL, TRUE));
+		$this->Sandbox->add_Item($clean);
+
+		$this->detail($clean['requisitionid']);
+		
+	}
+	
+	/* Upload and assign Invoice to requisition */
+	public function purchaseOrder_upload() {
+		$path = base_url().'assets/uploads/';
+		is_dir($path);
+		is_writable($path);
+		$config['upload_path'] = './assets/uploads/';
+		$config['allowed_types'] = 'gif|jpg|png|pdf';
+		
+		
+		$this->upload->initialize($config);
+		if ( !$this->upload->do_upload('purord'))
+		{
+			$error = array('error' => $this->upload->display_errors());
+		}
+		else
+		{
+			$clean = $this->security->xss_clean($this->input->post(NULL, TRUE));
+			$pOrder['file'] = $this->upload->data();
+			$pOrder['requisitionid'] = $clean['requisitionid'];
+			$this->Sandbox->insert_Invoice($pOrder);
+			$this->detail();
+		}
+	}
+	
+	//File Download
+	function download(){
+		
+		$id = $this->uri->segment(3);
+		
+		$data = $this->Sandbox->getPurchaseOrder($id);
+		
+		//var_dump($data);
+		$path = $data[0]['file_path'];
+		$contents = file_get_contents($path);
+		$name = $data[0]['file_name'];
+		
+		force_download($path, $contents);
+		
+	}
 	
 }
