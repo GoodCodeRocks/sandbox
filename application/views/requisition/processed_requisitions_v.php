@@ -16,14 +16,14 @@
 						</tr>
 						<?php foreach ($Requisitions as $requisition) { ?>
 						    <tr>
-								<td> <?=$requisition['requisition_no'] ?> </td>
+								<td> <?=$requisition['requisition_id'] ?><?=$requisition['requisition_no'] ?> </td>
 								<td> <?=$requisition['department_name'] ?> </td>
 								<td> <?=$requisition['created_at'] ?> </td>
 								<td> <?=$requisition['step'] ?> of <?=$requisition['total_steps'] ?> 
 									 <?=$requisition['finance_approved'] ?> 
 								</td>
 								<td>
-									<?=anchor('requisition/detail/'.$requisition['id'],'<button type="submit" class="btn-xs btn-success">View</button>')?>
+									<?=anchor('requisition/detail/'.$requisition['requisition_id'],'<button type="submit" class="btn-xs btn-success">View</button>')?>
 								
 								</td>
 							</tr>

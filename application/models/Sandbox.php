@@ -137,9 +137,63 @@
       		return $result;
       }
       
+      public function approveRequisition($user_id, $requisition_id) {
+      	 // update requisition set the next step
+      	 $sql = "select distinct a.id, a.department_id, bb.step, a.requisition_step_id,
+				(
+							      	select distinct count(aa.step)
+							      	from
+							      	steps aa
+							      	join department b on b.is_academic = aa.is_academic
+							      	
+							      	where b.id = a.department_id
+							      	group by b.id
+				) as total_steps
+				from requisition a
+				join requisition_steps bb on bb.requisition_id = a.id and bb.id = a.requisition_step_id
+				where a.id = $requisition_id ";
+      	 $result = $this->db->query($sql)->result_array();
+      	 
+      	 $requisition_step_id = $result[0]['requisition_step_id'];
+      	 $requisition_id = $result[0]['id'];
+      	 $current_step = $result[0]['step'];
+      	 
+      	 $sql = " update requisition_steps set user_id = $user_id, approved_at = current_timestamp() where id = $requisition_step_id ";
+      	 $this->db->query($sql);
+      	 
+      	 
+      	 $sql = " select * from (select a.id, a.requisition_id, a.user_id, a.step
+					, (
+							select distinct count(aa.step)
+							from
+							steps aa
+							join department b on b.is_academic = aa.is_academic
+							
+							where b.id = a.department_id
+							group by b.id
+					) as total_steps
+					from requisition_steps a 
+				) a
+					where a.requisition_id = $requisition_id and a.step = ( $current_step + 1 ) 
+					and ( a.total_steps >= ( $current_step + 1 ) ) ";
+      	 
+      	 $result = $this->db->query($sql)->result_array();
+      	 
+      	 try {
+      	 
+      	     @$id = $result[0]['id'];
+      	 
+	      	 if(isset($id)) {
+	      	    	$sql = " update requisition set requisition_step_id = $id where id = $requisition_id ";
+		      	$this->db->query($sql);
+	          }
+      	 } catch(Exception $e) {
+      	 	  echo "Asdf";
+      	 }
+      }
               
-     // return user department ids so that it can be used in other 
-     // places in the application
+      // return user department ids so that it can be used in other 
+      // places in the application
       function getUserDepartmentsIds($user_id) {
             $user_departments = $this->getUserDepartments($user_id);
             foreach ($user_departments as $user_department) {

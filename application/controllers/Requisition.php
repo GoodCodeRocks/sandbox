@@ -57,6 +57,15 @@ class Requisition extends CI_Controller
 		$this->load->view('template/main_template',$data);
 	}
 
+	public function approve() {
+		
+		$data['User'] = $this->user_id;
+		$requisition_id = $_POST['req_id'];
+		$this->Sandbox->approveRequisition($data['User'], $requisition_id);
+		$this->detail($requisition_id);
+		
+	}
+	
 	public function approved() {
 
 		//$this->load->view('users/my_requisition_v');
@@ -66,46 +75,8 @@ class Requisition extends CI_Controller
 		$data['content'] = 'requisition/approved_requisitions_v';
 		$this->load->view('template/main_template',$data);
 	}
-
+	
 	public function listall() {
-		
-		/*
-		
-		WHEN A REQUISITION IS CREATED IT HAS A STATUS OF 0 AND CAN BE VIEWED BY THE CREATOR - USER
-		WHEN A REQUISITION IS SUBMITTED FOR APPROVAL ITS STATUS IS UPDATED TO 1 THUS ALLOWING USERS AT STAGE 2 TO VIEW
-		WHEN IT IS APPROVED, IT WOULD THEN HAVE ITS STATUS UPATED TO 2 THUS ALLOWING USERS AT STAGE 2 TO VIEW THE PENDING REQUISITIONS -
-		WHEN APPROVED AT STAGE 2 THE STATUS IS UPDATED TO 3 THUS ALLOWING USERS AT STAGE 3 ACCESS TO REQUISITION
-		WHEN APPROVED AT STAGE 3 THE STATUS IS UPDATED TO 4
-		WHEN APPROVED AT STAGE
-		
-		
-		1. Listed requisitions are printed in two categories ( Unprocessed, Processed )
-		2. Unprocessed requistions are those which have not yet been sent to the next step for vetting
-		and approval
-		3. Requisitions listed at each step is based on
-		a ) The current step at which the requisition is pending
-		b ) The user assigned to perform approvals
-		c ) The creator of requisition and Finance are the only two places where requisitions
-		that span multiple steps can be viewed
-		Finance would be able to see all requisitions pending and approved
-		
-		*/
-		
-		/* Get all requisitions created by user and not yet submitted */
-		//$data['create'] = $this->rm->getUserRequisitions();
-		
-		/* Get all requisitions submitted by user and not yet approved */
-		//$data['view'] =  $this->rm->getRequisitions();
-		
-		/* Get all processed requisitions submitted by user */
-		//$data['processed'] = $this->rm->userApprovedRequisition();
-		
-		/* Get all approved requisitions submitted by user */
-		//$data['approved'] = $this->rm->getapprovedReqs();
-		
-		//$requisiton = $data['approved'][0]->RequisitionNo;
-		
-		
 		
 		$data['content'] = 'requisition/my_requisition_v';
 		$this->load->view('template/main_template',$data);

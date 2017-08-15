@@ -33,10 +33,13 @@ $(document).ready(function() {
 						</div>
 						<hr>
 						<div class="row" id="tabs">
+						<?=form_open('requisition/approve')?>
 							<div class=" col-md-2 col-md-offset-10">
+								<input type="hidden" name="req_id" value="<?=$details[0]['id']?>" />
 								<button type="submit" class="btn-xs btn-success">Process</button>
 			            		<button type="submit" class="btn-xs btn-danger">Cancel</button>
 			            	</div>
+			            <?=form_close()?>
 							<ul>
 								<li><a href="#tabs-status">Status</a></li>
 								<li><a href="#tabs-items">Items</a></li>
