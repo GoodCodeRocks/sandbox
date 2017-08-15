@@ -103,12 +103,15 @@ $(document).ready(function() {
 						  	<?php 
 					        	if (!empty($details[0]['file_name']))
 					        	{
-					        		$path = $details[0]['file_path'].$details[0]['file_name'];
-					        		  $name = $details[0]['file_name'];
+					        		$name = $details[0]['file_name'];
+					        		$path = base_url('assets/uploads/'.$name);
+					        		 
+					        		  //echo $path;
 									?>
-					        		 		        		 
-					        		  <a href="<?=base_url().'requisition/download/'.$this->uri->segment(3);?>" target="_blank">View Purchase Order: <small><?php echo $details[0]['file_name']; ?></small></a>
-
+					        		 <embed src="<?php echo base_url('assets/uploads/'.$name); ?>" width="100%" height="500">
+					        		 <br>        		 
+					        		  <a href="<?=base_url().'requisition/download/'.$this->uri->segment(3);?>"
+					        		  		target="_blank"><button>Download</button></a>
 					        		  <br>
 					        		  <small>File will be downloaded to your computer</small>
 					        		  
