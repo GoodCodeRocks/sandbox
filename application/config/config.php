@@ -23,7 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://localhost/sandbox/';
+$config['base_url'] = 'http://172.16.85.230/sandbox/';
 
 /*
 |--------------------------------------------------------------------------
@@ -521,4 +521,10 @@ $config['rewrite_short_tags'] = FALSE;
 | Array:		array('10.0.1.200', '192.168.5.0/24')
 */
 $config['proxy_ips'] = '';
-$config['detect_mime'] ='TRUE';
+
+$config['upload_path']          = 'base_url().assets/uploads/';
+$config['allowed_types']        = 'gif|jpg|png|pdf';
+$config['max_size']             = '100';
+$config['max_width']            = '1024';
+$config['max_height']           = '768';
+$config['detect_mime']			='TRUE';
