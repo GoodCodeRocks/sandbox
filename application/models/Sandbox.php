@@ -28,10 +28,13 @@
             // department type
             $department_type = $result['is_academic'];
             //echo $department_type;
-
+            
+            //generate requisition number;
+            $req_no = $this->req_num();
+            
             // generate requisition
             $sql = " insert into requisition (requisition_no, user_id, department_id, requisition_status )
-                     values ('20170705-1123-XmtsrE',$user_id,$department_id, null ) " ;
+                     values ($req_no,$user_id,$department_id, null ) " ;
             $result = $this->db->query($sql);
 
             // grab the reqquisition_id once it has been created
@@ -76,10 +79,12 @@
       	// department type
       	$department_type = $result['is_academic'];
       	
+      	//generate requisition number;
+      	$req_no = $this->req_num();
       	
       	// generate requisition
       	$sql = " insert into requisition (requisition_no, user_id, department_id, requisition_status )
-      	values ('20170705-1123-XmtsrE',$user_id,$department_id, null ) " ;
+      	values ('$req_no',$user_id,$department_id, null ) " ;
       	$result = $this->db->query($sql);
       	
       	 	
@@ -354,6 +359,23 @@
  				from purchase_order
  				where requisition_id =$id";
       	return $this->db->query($sql)->result_array();
+      }
+      
+      /* Method Generates random requisition number for each new Requisition */
+      private function req_num() {
+      	
+      	$pool = array_merge(range(0,9), range('a', 'z'),range('A', 'Z'));
+      	$length = 4;
+      	$key ="";
+      	date_default_timezone_set ( "America/La_Paz" );
+      	
+      	for($i=0; $i < $length; $i++) {
+      		$key .= $pool[mt_rand(0, count($pool) - 1)];
+      	}
+      	
+      	$date = date('Ymd-his');
+      	$req_num = $date."-".$key;
+      	return $req_num;
       }
       
 

@@ -188,4 +188,30 @@ class Requisition extends CI_Controller
 		
 	}
 	
+	/* Method Generates random requisition number for each new Requisition */
+/* 	private function req_num() {
+		
+		$pool = array_merge(range(0,9), range('a', 'z'),range('A', 'Z'));
+		$length = 6;
+		$key ="";
+		date_default_timezone_set ( "America/La_Paz" );
+		
+		for($i=0; $i < $length; $i++) {
+			$key .= $pool[mt_rand(0, count($pool) - 1)];
+		} 
+		
+		$date = date('Ymd-his');
+		$req_num = $date."-".$key;
+		return $req_num;
+	}
+	
+ */
+	
+/* 	public function reqnumber(){
+		
+		$req_num = $this->req_num();
+		$date = strtok($req_num, '-');
+		$break = explode("-", $req_num, 3);
+		echo $break[0]."/".$break[1]."/".$break[2];
+	} */
 }
