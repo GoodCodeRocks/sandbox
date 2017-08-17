@@ -34,7 +34,7 @@ class Requisition extends CI_Controller
 		} else {
 			$data = $_POST;
 			$this->Sandbox->save($data);
-			//redirect('requisition/pending','location');
+			redirect('requisition/pending','location');		
 		}
 	}
 	
