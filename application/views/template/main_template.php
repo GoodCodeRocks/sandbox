@@ -84,6 +84,7 @@
 			            		<li><a href="<?= base_url('requisition/processed'); ?>">Processed <span class="label label-success">42</span></a></li>
 			            		<li><a href="<?= base_url('index.php/welcome/approvedRequisition'); ?>">Approved <span class="label label-danger">42</span></a></li>
 			            		<li><a href="<?= base_url('requisition/form'); ?>">New Requisition</a></li>
+			            		<li><a href="<?= base_url('requisition/finance'); ?>">Finance</a></li>
 			            		<li><a href="<?= base_url('index.php/welcome/history'); ?>">Reports</a></li>
 			            	</ul>
 		            	</div>

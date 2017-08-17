@@ -142,7 +142,7 @@ $(document).ready(function() {
 						  	<div id="tabs-finance">
 							<?=form_open('requisition/process/', array('class' => 'form-horizontal'));?>
 							<div class="col-md-6">
-	            					<label for="itemname">Finance Code:</label>
+	            					<label for="itemname">Budget Line Item:</label>
 					            		<input type="text" class="form-control" name="itemname" value="">
 				            	</div>
 							    
@@ -150,25 +150,28 @@ $(document).ready(function() {
 	            					<label for="itemcategory">Payment Method:</label>
 		            					<select name="paymentmethod" id="paymentmethod" class="form-control">
 								            <option value="" disabled selected>Please Select One</option>
-								            <option value="">Petty Cash</option>
-								            <option value="">TT Cheque</option>
-								            <option value="">Purchase Order</option>
-								            <option value="">Wire Transfer</option>
-								            <option value="">Bank Draft</option>
+								            <optgroup label="TT">
+								            	<option value="">TT Cheque</option>
+								            	<option value="">Petty Cash</option>
+								            	<option value="">Purchase Order</option>
+								            	<option value="">Wire Transfer</option>
+								            	<option value="">Bank Draft</option>
+								            </optgroup>
+								            <optgroup label="US">
+								            	<option value="">US Cheque</option>
+								            	<option value="">US Cash</option>
+								            </optgroup>
+								            <optgroup label="EC">
+								            	<option value="">TT Cheque</option>
+								            	<option value="">EC Cash</option>
+								            </optgroup>
+								            
+								            
+								            
 										</select>
 				            	</div>
-				            	<div class="col-md-6">
-	            					<label for="itemname">Bank Account:</label>
-					            		<input type="text" class="form-control" name="itemname" value="">
-				            	</div>
-				            	<div class="col-md-6">
-	            					<label for="itemname">Charge Account:</label>
-					            		<input type="text" class="form-control" name="itemname" value="">
-				            	</div>
-				            	
-				            	<div class="row"></div>
-					            <hr>
 					            <div class=" col-md-2 col-md-offset-10">
+					            	<hr>
 									<button type="submit" class="btn-xs btn-success">Save</button>
 				            		<button type="submit" class="btn-xs btn-danger">Cancel</button>
 			            		</div>
@@ -178,24 +181,26 @@ $(document).ready(function() {
 						
 						<hr>
 						<div class="row">
-	            			<table class="table-striped table-hover table-bordered " style="Width:100%; height: 100%;">
-								<tr>
-									<th>Item Description</th>
-									<th>Category</th>
-									<th>Quantity</th>
-									<th>Unit Cost</th>
-									<th>Cumulative Cost</th>
-								</tr>
-								<?php foreach ($Items as $item) {?>	
-								<tr>
-									<td><?=$item['description']?></td>
-									<td><?=$item['category_name']?></td>
-									<td><?=$item['quantity']?></td>
-									<td><?=$item['unit_cost']?></td>
-									<td><?=$item['cumulative_cost']?></td>
-								</tr>
-								<?php }?>
-							</table>
+							<div class="col-md-10 col-md-offset-1">
+		            			<table class="table-striped table-hover table-bordered " style="Width:100%; height: 100%;">
+									<tr>
+										<th>Item Description</th>
+										<th>Category</th>
+										<th>Quantity</th>
+										<th>Unit Cost</th>
+										<th>Cumulative Cost</th>
+									</tr>
+									<?php foreach ($Items as $item) {?>	
+									<tr>
+										<td><?=$item['description']?></td>
+										<td><?=$item['category_name']?></td>
+										<td><?=$item['quantity']?></td>
+										<td><?=$item['unit_cost']?></td>
+										<td><?=$item['cumulative_cost']?></td>
+									</tr>
+									<?php }?>
+								</table>
+							</div>
 						</div>
 						
 	            	</div>
