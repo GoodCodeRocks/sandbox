@@ -14,6 +14,7 @@
       }
 
       // generate requsition  and requsition steps based on a user_id
+
       public function save($data) {
 
                   // determine department_id the user is associated with
@@ -62,6 +63,7 @@
 
       function getRequisitions($user_id, $view = null) {
       	
+
 	      	$user_departments = $this->getUserDepartmentsIds($user_id);
 	      	$user_roles = $this->getUserRoles($user_id);
 	      	$user_steps = $this->getUserSteps($user_id);
@@ -84,6 +86,10 @@
 	      	$result = $this->db->query($sql)->result_array();
 	      	
       		return $result;
+
+        $this->db->query($sql); 
+      	
+
       }
       
       function getProcessedRequisitions($user_id, $view = null) {
@@ -374,6 +380,23 @@
  				from purchase_order
  				where requisition_id =$id";
       	return $this->db->query($sql)->result_array();
+      }
+      
+      /* Method Generates random requisition number for each new Requisition */
+      private function req_num() {
+      	
+      	$pool = array_merge(range(0,9), range('a', 'z'),range('A', 'Z'));
+      	$length = 4;
+      	$key ="";
+      	date_default_timezone_set ( "America/La_Paz" );
+      	
+      	for($i=0; $i < $length; $i++) {
+      		$key .= $pool[mt_rand(0, count($pool) - 1)];
+      	}
+      	
+      	$date = date('Ymd-his');
+      	$req_num = $date."-".$key;
+      	return $req_num;
       }
       
 

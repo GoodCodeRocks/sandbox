@@ -520,5 +520,9 @@ $config['rewrite_short_tags'] = FALSE;
 | Comma-separated:	'10.0.1.200,192.168.5.0/24'
 | Array:		array('10.0.1.200', '192.168.5.0/24')
 */
-$config['proxy_ips'] = '';
-$config['detect_mime'] ='TRUE';
+$config['upload_path']          = 'base_url().assets/uploads/';
+$config['allowed_types']        = 'gif|jpg|png|pdf';
+$config['max_size']             = '100';
+$config['max_width']            = '1024';
+$config['max_height']           = '768';
+$config['detect_mime']			='TRUE';

@@ -152,4 +152,43 @@ class Requisition extends CI_Controller
 		
 	}
 	
+	//finance Module
+	function finance(){
+		//$this->load->view('users/my_requisition_v');
+		$data['User'] = $this->user_id;
+		
+		$data['UserRoles']= $this->Sandbox->getUserRoles($data['User']);
+		$data['Requisitions'] = $this->Sandbox->getProcessedRequisitions($data['User']);
+		$data['content'] = 'requisition/finance_pending_requisitions_v';
+		$this->load->view('template/main_template',$data);
+	}
+	
+	function finance_detail($requisitionid = Null) {
+		
+		if($this->uri->segment(3) == NULL)
+		{
+			$data['info'] = $requisitionid;
+		}
+		else {
+			$data['info'] = $this->uri->segment(3);
+		}
+		$data['content'] = 'requisition/finance_v';
+		
+		/* Returns requisition info related to specified requisition */
+		$data['details'] = $this->Sandbox->getRequisitionDetails($data['info']);
+		$data['toProcess'] = $this->Sandbox->getrequisitionprocessingdetails($data['info']);
+		$data['processedBy'] = $this->Sandbox->getrequisitionprocessdetails($data['info']);
+		$data['Items'] = $this->Sandbox->getrequisitionitems($data['info']);
+		$data['Category'] = $this->Sandbox->getcategory();
+		$this->load->view('template/main_template',$data);
+	}
+	
+	
+/* 	public function reqnumber(){
+		
+		$req_num = $this->req_num();
+		$date = strtok($req_num, '-');
+		$break = explode("-", $req_num, 3);
+		echo $break[0]."/".$break[1]."/".$break[2];
+	} */
 }
