@@ -26,11 +26,11 @@
                 $result = $this->db->query($sql)->row_array();
                   // department type
                   $department_type = $result['is_academic'];
-                  //Requisition Number
-                  $requisition_number = $this->req_num();
+                  //generate requisition Number
+                  $req_No = $this->req_num();
                   // generate requisition
                   $sql = " insert into requisition (requisition_no, user_id, department_id, requisition_status )
-                  values ($requisition_number,$user_id,$department_id, null ) " ;
+                  values ('.$req_No.',$user_id,$department_id, null ) " ;
                   $result = $this->db->query($sql);
                   // grab the reqquisition_id once it has been created
                   $requisition_id = $this->db->insert_id();
