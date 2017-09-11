@@ -43,74 +43,72 @@
     </head>
     <body>
         <div class="container-fluid">
-        <div class="row">
-        	<div class="col-lg-12">
-            	<nav class="navbar navbar-default">
-                    <div class="navbar-header">
-                        <a class="navbar-brand" href="<? echo base_url(); ?>dashboard">
-                            <strong>Requisition</strong>
-                        </a>
-                    </div>
-
-                    <ul class="nav navbar-nav ">
-                        <li class="">
-                                <a href="#">
-                                    Logged in as <b>Niall Edwards</b>
-                                </a>
-                        </li>
-                        <li class=""><a href="" >Log Out</a> </li>
-                    </ul>
-
-                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-
-                        <ul class="nav navbar-nav navbar-right">
-                            <li><a href="http://www.usc.edu.tt" target="_blank">USC Webpage</a></li>
-                        </ul>
-                    </div>
-            	</nav>
+	        <div class="row">
+	        	<div class="col-lg-12">
+	            	<nav class="navbar navbar-default">
+	                    <div class="navbar-header">
+	                        <a class="navbar-brand" href="<? echo base_url(); ?>dashboard">
+	                            <strong>Requisition</strong>
+	                        </a>
+	                    </div>
+	
+	                    <ul class="nav navbar-nav ">
+	                        <li class="">
+	                                <a href="#">
+	                                    Logged in as <b>Niall Edwards</b>
+	                                </a>
+	                        </li>
+	                        <li class=""><a href="" >Log Out</a> </li>
+	                    </ul>
+	
+	                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	
+	                        <ul class="nav navbar-nav navbar-right">
+	                            <li><a href="http://www.usc.edu.tt" target="_blank">USC Webpage</a></li>
+	                        </ul>
+	                    </div>
+	            	</nav>
+	        	</div>
         	</div>
-        	</div>
-
-		<div class="container">
-		<div class="page-content" style="min-height: 550px;">
-	            <div class="left-panel" style="float: left; width: 15%; padding: 5px; margin: 5px; ">
-	            <div class="panel panel-success row">
-					<div class="panel-heading" style="font-family: sans-serif; font-size: 24px;; text-align: center; color: Orange; padding: 1px; margin:1px;"><h3>User</h3></div>
-						<div class="panel-body">
-			            	<ul class="list-unstyled">
-
-			            		
-			            		<li><a href="<?= base_url('requisition/pending'); ?>">Pending <span class="label label-warning">42</span></a></li>
-			            		<li><a href="<?= base_url('requisition/processed'); ?>">Processed <span class="label label-success">42</span></a></li>
-			            		<li><a href="<?= base_url('requisition/approved'); ?>">Approved <span class="label label-danger">42</span></a></li>
-			            		<li><a href="<?= base_url('requisition/form'); ?>">New Requisition</a></li>
-			            		<li><a href="<?= base_url('requisition/finance'); ?>">Finance</a></li>
-			            		<li><a href="<?= base_url('index.php/welcome/history'); ?>">Reports</a></li>
-			            	</ul>
+			<div class="page-content" style="min-height: 550px;">
+		            <div class="left-panel" style="float: left; width: 15%; padding: 5px; margin: 5px; ">
+		            <div class="panel panel-success row">
+						<div class="panel-heading" style="font-family: sans-serif; font-size: 24px;; text-align: center; color: Orange; padding: 1px; margin:1px;"><h3>User</h3></div>
+							<div class="panel-body">
+				            	<ul class="list-unstyled">
+	
+				            		
+				            		<li><a href="<?= base_url('requisition/pending'); ?>">Pending <span class="label label-warning">42</span></a></li>
+				            		<li><a href="<?= base_url('requisition/processed'); ?>">Processed <span class="label label-success">42</span></a></li>
+				            		<li><a href="<?= base_url('requisition/approved'); ?>">Approved <span class="label label-danger">42</span></a></li>
+				            		<li><a href="<?= base_url('requisition/form'); ?>">New Requisition</a></li>
+				            		<li><a href="<?= base_url('requisition/finance'); ?>">Finance</a></li>
+				            		<li><a href="<?= base_url('index.php/welcome/history'); ?>">Reports</a></li>
+				            	</ul>
+			            	</div>
 		            	</div>
-	            	</div>
-
-	            	<hr>
-	            	<div class="panel panel-success row">
-					<div class="panel-heading" style="font-family: sans-serif; font-size: 24px;; text-align: center; color: Orange; padding: 1px; margin:1px;"><h3>Admin</h3></div>
-						<div class="panel-body">
-	            	<ul class="list-unstyled">
-
-	            		<li><a href="<?= base_url('admin/users'); ?>">Manage Users</a></li>
-	            		<li><a href="<?= base_url('admin/departments'); ?>">Manage Departments</a></li>
-	            		<li><a href="<?= base_url('index.php/welcome/managePayees'); ?>">Manage Payees</a></li>
-	            		<li><a href="#">Manage Admins</a></li>
-	            		<li><a href="<?= base_url('index.php/welcome/manageProcesses'); ?>">Manage Processes</a></li>
-						<li><a href="<?= base_url('admin/steps'); ?>">Manage Steps</a></li>
-	            		<li><a href="<?= base_url('admin/roles'); ?>">Manage Roles</a></li>
-	            	</ul>
-	            	</div>
-	            	</div>
-	            </div>
-	        <?php $this->load->view($content); ?>
+	
+		            	<hr>
+		            	<div class="panel panel-success row">
+						<div class="panel-heading" style="font-family: sans-serif; font-size: 24px;; text-align: center; color: Orange; padding: 1px; margin:1px;"><h3>Admin</h3></div>
+							<div class="panel-body">
+		            	<ul class="list-unstyled">
+	
+		            		<li><a href="<?= base_url('admin/users'); ?>">Manage Users</a></li>
+		            		<li><a href="<?= base_url('admin/departments'); ?>">Manage Departments</a></li>
+		            		<li><a href="<?= base_url('index.php/welcome/managePayees'); ?>">Manage Payees</a></li>
+		            		<li><a href="#">Manage Admins</a></li>
+		            		<li><a href="<?= base_url('index.php/welcome/manageProcesses'); ?>">Manage Processes</a></li>
+							<li><a href="<?= base_url('admin/steps'); ?>">Manage Steps</a></li>
+		            		<li><a href="<?= base_url('admin/roles'); ?>">Manage Roles</a></li>
+		            	</ul>
+		            	</div>
+		            	</div>
+		            </div>
+		        <div  class="right-panel" style="float: left; width: 83%; padding: 2px; margin: 5px;">
+		        	<?php $this->load->view($content); ?>
+		        </div>
 	        </div>
-	    </div>
-
 			<div class="row">
 				<div class="col-lg-12" style="height: 75px; background: lightgreen;">
 					<div class="row">

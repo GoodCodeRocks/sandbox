@@ -1,12 +1,12 @@
-<div class="right-panel" style="float: left; width: 80%; padding: 5px; margin: 5px;">
-<div class="row">
-<div class="row text-center">
-	<h2> Department Requisition History </h2>
-</div>
-	<div class="col-md-12">
+
+<div class="container-fluid">
+	<div class="row text-center">
+		<h2> Department Requisition History </h2>
+	</div>
+	<div class="col-lg-12">
 		<div class="panel-group" id="accordion">
-			  <div class="panel panel-default">
-			    <div class="panel-heading">
+			<div class="panel panel-default">
+				<div class="panel-heading">
 			      <h3 class="panel-title">
 			       <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
 			        <strong>2ndSem 15-16</strong></a>
@@ -18,9 +18,9 @@
 			      		<img src="<?=base_url("assets/img/piechart.jpg")?>" alt="Fjords" width="350" height="200">
 			      </div>
 			    </div>
-			  </div>
-			  <div class="panel panel-default">
-			    <div class="panel-heading">
+			</div>
+			<div class="panel panel-default">
+				<div class="panel-heading">
 			      <h3 class="panel-title">
 			        <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
 			        <strong>2ndSem 15-16</strong></a>
@@ -32,28 +32,26 @@
 			      		<img src="<?=base_url("assets/img/chart-2.png")?>" alt="Fjords" width="350" height="200">
 			      </div>
 			    </div>
-			  </div>
-			  <div class="panel panel-default">
-			    <div class="panel-heading">
+			</div>
+			<div class="panel panel-default">
+				<div class="panel-heading">
 			      <h3 class="panel-title">
 			        <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
 			        <strong>3rdSem 15-16</strong></a>
 			      </h3>
 			    </div>
 			    <div id="collapse3" class="panel-collapse collapse">
-			      <div class="panel-body">
-			      
+			      	<div class="panel-body">
 			      	<h2> Processed Requisitions (ReadOnly) </h2>
-			      		
 			      		<img src="<?=base_url("assets/img/chart-1.png")?>" alt="Fjords" width="350" height="250">
 						<div id="resizable" style="height: 300px;border:1px solid gray;">
 							<div id="chartContainer1" style="height: 100%; width: 100%;"></div>
 						</div>
-			      </div>
+			      	</div>
 			    </div>
-			  </div>
-			  <div class="panel panel-default">
-			    <div class="panel-heading">
+			</div>
+			<div class="panel panel-default">
+			   	<div class="panel-heading">
 			      <h3 class="panel-title">
 			        <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">
 			        <strong>Draggable Test</strong></a>
@@ -66,11 +64,9 @@
 						
 			      	</div>
 			    </div>
-			  </div>
 			</div>
+		</div>
 	</div>			
-
-</div>
 </div>
 <!-- Script for Charts -->
   <script type="text/javascript">
