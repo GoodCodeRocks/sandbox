@@ -6,6 +6,7 @@ class Steps extends CI_Controller {
 	function __construct() {
 		parent::__construct();
 		$this->load->model('admin/Steps_Model','Steps');
+		$this->load->model('Sandbox','Sandbox');
 		$this->output->enable_profiler(TRUE);
 	}
 	
@@ -14,7 +15,11 @@ class Steps extends CI_Controller {
 	}
 	
 	function list() {
+		$data['User'] = 79;
 		
+		$data['pending'] = $this->Sandbox->countRequisitions($data['User'], true );
+		$data['processed'] = $this->Sandbox->countProcessedRequisitions($data['User'], true );
+		$data['approved'] = $this->Sandbox->countapprovedRequisitions($data['User'], true );
 		$data['Steps'] =$this->Steps->listAll();
 		
 		$data['content'] = 'admin/steps/index_v';

@@ -9,6 +9,7 @@ class Users extends CI_Controller {
 		$this->load->model('admin/Users_Model','Users');
 		$this->load->model('admin/Roles_Model','Roles');
 		$this->load->model('admin/Departments_Model','Departments');
+		$this->load->model('Sandbox','Sandbox');
 		$this->output->enable_profiler(TRUE);
 	}
 	
@@ -18,7 +19,11 @@ class Users extends CI_Controller {
 	}
 	
 	function list() {
+		$data['User'] = 79;
 		
+		$data['pending'] = $this->Sandbox->countRequisitions($data['User'], true );
+		$data['processed'] = $this->Sandbox->countProcessedRequisitions($data['User'], true );
+		$data['approved'] = $this->Sandbox->countapprovedRequisitions($data['User'], true );
 		$data['Users'] =$this->Users->listAll();
 		
 		$data['content'] = 'admin/users/index_v';

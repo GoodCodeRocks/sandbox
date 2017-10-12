@@ -94,6 +94,31 @@
 
       }
       
+      
+      function countRequisitions($user_id, $view = null) {
+      	
+      	
+      	$user_departments = $this->getUserDepartmentsIds($user_id);
+      	$user_roles = $this->getUserRoles($user_id);
+      	$user_steps = $this->getUserSteps($user_id);
+      	
+      	$sql = " select count(a.requisition_no) as num
+      	from requisition a
+      	join requisition_steps b on b.requisition_id = a.id and b.id = a.requisition_step_id
+      	join department c on c.id = a.department_id
+      	where a.department_id in ($user_departments) and b.step in ($user_steps) ";
+      	
+      	$result = $this->db->query($sql)->result_array();
+      	
+      	return $result;
+      	
+      	$this->db->query($sql);
+      	
+      	
+      }
+      
+      
+      
       function getProcessedRequisitions($user_id, $view = null) {
       	
       	$user_departments = $this->getUserDepartmentsIds($user_id);
@@ -144,6 +169,64 @@
 			      	$result = $this->db->query($sql)->result_array();
       		return $result;
       }
+      
+      
+      
+      
+      function countProcessedRequisitions($user_id, $view = null) {
+      	
+      	$user_departments = $this->getUserDepartmentsIds($user_id);
+      	$user_roles = $this->getUserRoles($user_id);
+      	$user_steps = $this->getUserSteps($user_id);
+      	
+      	
+      	$sql = " select case when (b.step > fin_step.finance_) then count(b.requisition_id) end as processed
+      	from requisition a
+      	join requisition_steps b on b.requisition_id = a.id and b.id = a.requisition_step_id
+      	join department c on c.id = a.department_id
+      	join steps d on d.id = b.step_id
+      	join (
+      	-- get the step at which finance approves requisitions
+      	-- if the requisition step is higher than this step, then it can be marked as approved
+      	select distinct min(step) as finance_, a.id, a.department_id
+      	
+      	from (
+      	-- get the step at which the vp approves requisition
+      	select distinct a.department_id, b.id as dep_id, b.is_academic, c.step, c.is_finance, a.id
+      	from requisition a
+      	join requisition_steps bb on bb.requisition_id = a.id and bb.id = a.requisition_step_id
+      	join department b on b.id = a.department_id
+      	join steps c on c.is_academic = b.is_academic
+      	where c.is_finance = 1
+      	
+      	) a
+      	
+      	) fin_step
+      	where a.department_id in ($user_departments) and d.step > ( select $user_steps ) ";
+      	
+      	$result = $this->db->query($sql)->result_array();
+      	return $result;
+      }
+      
+      
+      function countapprovedRequisitions($user_id, $view = null) {
+      	
+      	$user_departments = $this->getUserDepartmentsIds($user_id);
+      	$user_roles = $this->getUserRoles($user_id);
+      	$user_steps = $this->getUserSteps($user_id);
+      	
+      	
+      	$sql = " select count(a.id) as approved
+			from requisition a
+			join requisition_steps b on b.requisition_id = a.id and b.id = a.requisition_step_id
+			join department c on c.id = a.department_id
+			join steps d on d.id = b.step_id
+			where d.is_finance = 1 and a.department_id in ($user_departments) and d.step > ( select $user_steps ) ";
+      	
+      	$result = $this->db->query($sql)->result_array();
+      	return $result;
+      }
+      
       
       public function approveRequisition($user_id, $requisition_id) {
       	 // update requisition set the next step
@@ -296,6 +379,18 @@
       	//	} catch (Exception $e){
       	//		return $e;
       	//}
+      }
+      
+      //return information on persons who approved requisition
+      //return bank and budget line details entered by Finance
+      function getrequisitionapprovaldetails($info){
+      	$sql = "select a.requisition_id, a.user_id, concat(d.first_name,' ',d.last_name) as user, c.name
+			from requisition_steps a
+			left join requisition b on b.id = a.requisition_id
+			left join department c on c.id = b.department_id
+			left join users d on d.id = a.user_id
+			where a.requisition_id = $info";
+      	return $this->db->query($sql)->result_array();
       }
       
       

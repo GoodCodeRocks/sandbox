@@ -20,6 +20,10 @@ class Requisition extends CI_Controller
 	
 	public function form() {
 		$data['User'] = $this->user_id;
+		
+		$data['pending'] = $this->Sandbox->countRequisitions($data['User'], true );
+		$data['processed'] = $this->Sandbox->countProcessedRequisitions($data['User'], true );
+		$data['approved'] = $this->Sandbox->countapprovedRequisitions($data['User'], true );
 		$data['content'] = 'requisition/new_requisition_v';
 		$data['RequisitionTypes'] = $this->Sandbox->getType();
 		/* Returns all departments user is assigned */
@@ -42,6 +46,10 @@ class Requisition extends CI_Controller
 		//$this->load->view('users/my_requisition_v');
 		$data['User'] = $this->user_id;
 		
+		$data['pending'] = $this->Sandbox->countRequisitions($data['User'], true );
+		$data['processed'] = $this->Sandbox->countProcessedRequisitions($data['User'], true );
+		$data['approved'] = $this->Sandbox->countapprovedRequisitions($data['User'], true );
+		
 		$data['UserRoles']= $this->Sandbox->getUserRoles($data['User']);
 		$data['Requisitions'] = $this->Sandbox->getRequisitions($data['User']);
 		$data['content'] = 'requisition/pending_requisitions_v';
@@ -52,6 +60,10 @@ class Requisition extends CI_Controller
 		//$this->load->view('users/my_requisition_v');
 		$data['User'] = $this->user_id;
 		
+		$data['pending'] = $this->Sandbox->countRequisitions($data['User'], true );
+		$data['processed'] = $this->Sandbox->countProcessedRequisitions($data['User'], true );
+		$data['approved'] = $this->Sandbox->countapprovedRequisitions($data['User'], true );
+		
 		$data['Requisitions'] = $this->Sandbox->getProcessedRequisitions($data['User'], true );
 		$data['content'] = 'requisition/processed_requisitions_v';
 		$this->load->view('template/main_template',$data);
@@ -60,6 +72,10 @@ class Requisition extends CI_Controller
 	public function approve() {
 		
 		$data['User'] = $this->user_id;
+		
+		$data['pending'] = $this->Sandbox->countRequisitions($data['User'], true );
+		$data['processed'] = $this->Sandbox->countProcessedRequisitions($data['User'], true );
+		$data['approved'] = $this->Sandbox->countapprovedRequisitions($data['User'], true );
 		$requisition_id = $_POST['req_id'];
 		$this->Sandbox->approveRequisition($data['User'], $requisition_id);
 		$this->detail($requisition_id);
@@ -71,6 +87,9 @@ class Requisition extends CI_Controller
 		//$this->load->view('users/my_requisition_v');
 		$data['User'] = $this->user_id;
 		
+		$data['pending'] = $this->Sandbox->countRequisitions($data['User'], true );
+		$data['processed'] = $this->Sandbox->countProcessedRequisitions($data['User'], true );
+		$data['approved'] = $this->Sandbox->countapprovedRequisitions($data['User'], true );
 		$data['Requisitions'] = $this->Sandbox->getProcessedRequisitions($data['User'], true );
 		$data['content'] = 'requisition/approved_requisitions_v';
 		$this->load->view('template/main_template',$data);
@@ -92,6 +111,11 @@ class Requisition extends CI_Controller
 		else {
 			$data['info'] = $this->uri->segment(3);
 		}
+		$data['User'] = $this->user_id;
+		
+		$data['pending'] = $this->Sandbox->countRequisitions($data['User'], true );
+		$data['processed'] = $this->Sandbox->countProcessedRequisitions($data['User'], true );
+		$data['approved'] = $this->Sandbox->countapprovedRequisitions($data['User'], true );
 		$data['content'] = 'requisition/requisition_details_v';
 		
 		/* Returns requisition info related to specified requisition */
@@ -157,6 +181,9 @@ class Requisition extends CI_Controller
 		//$this->load->view('users/my_requisition_v');
 		$data['User'] = $this->user_id;
 		
+		$data['pending'] = $this->Sandbox->countRequisitions($data['User'], true );
+		$data['processed'] = $this->Sandbox->countProcessedRequisitions($data['User'], true );
+		$data['approved'] = $this->Sandbox->countapprovedRequisitions($data['User'], true );
 		$data['UserRoles']= $this->Sandbox->getUserRoles($data['User']);
 		$data['Requisitions'] = $this->Sandbox->getProcessedRequisitions($data['User']);
 		$data['content'] = 'requisition/finance_pending_requisitions_v';
@@ -174,15 +201,32 @@ class Requisition extends CI_Controller
 		}
 		$data['content'] = 'requisition/finance_v';
 		
+		$data['User'] = $this->user_id;
+		
+		$data['pending'] = $this->Sandbox->countRequisitions($data['User'], true );
+		$data['processed'] = $this->Sandbox->countProcessedRequisitions($data['User'], true );
+		$data['approved'] = $this->Sandbox->countapprovedRequisitions($data['User'], true );
+		
 		/* Returns requisition info related to specified requisition */
 		$data['details'] = $this->Sandbox->getRequisitionDetails($data['info']);
 		$data['toProcess'] = $this->Sandbox->getrequisitionprocessingdetails($data['info']);
 		$data['processedBy'] = $this->Sandbox->getrequisitionprocessdetails($data['info']);
+		$data['approvedBy'] = $this->Sandbox->getrequisitionapprovaldetails($data['info']);
 		$data['Items'] = $this->Sandbox->getrequisitionitems($data['info']);
 		$data['Category'] = $this->Sandbox->getcategory();
 		$this->load->view('template/main_template',$data);
 	}
 	
+	function print() {
+		$data['User'] = 79;
+		
+		$data['pending'] = $this->Sandbox->countRequisitions($data['User'], true );
+		$data['processed'] = $this->Sandbox->countProcessedRequisitions($data['User'], true );
+		$data['approved'] = $this->Sandbox->countapprovedRequisitions($data['User'], true );
+		$data['content'] = 'requisition/my_requisition_v';
+		
+		$this->load->view('template/main_template',$data);
+	}
 	
 /* 	public function reqnumber(){
 		

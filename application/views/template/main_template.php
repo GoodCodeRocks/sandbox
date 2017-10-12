@@ -7,6 +7,7 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        
 
         <link href="https://fonts.googleapis.com/css?family=Quattrocento+Sans" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -35,11 +36,6 @@
 		    $( "#tabs" ).tabs();
 		  } );
 		  </script>
-
-
-
-
-
     </head>
     <body>
         <div class="container-fluid">
@@ -47,7 +43,7 @@
 	        	<div class="col-lg-12">
 	            	<nav class="navbar navbar-default">
 	                    <div class="navbar-header">
-	                        <a class="navbar-brand" href="<? echo base_url(); ?>dashboard">
+	                        <a class="navbar-brand" href="<?php echo base_url(); ?>">
 	                            <strong>Requisition</strong>
 	                        </a>
 	                    </div>
@@ -77,10 +73,9 @@
 							<div class="panel-body">
 				            	<ul class="list-unstyled">
 	
-				            		
-				            		<li><a href="<?= base_url('requisition/pending'); ?>">Pending <span class="label label-warning">42</span></a></li>
-				            		<li><a href="<?= base_url('requisition/processed'); ?>">Processed <span class="label label-success">42</span></a></li>
-				            		<li><a href="<?= base_url('requisition/approved'); ?>">Approved <span class="label label-danger">42</span></a></li>
+				            		<li><a href="<?= base_url('requisition/pending'); ?>">Pending <span class="label label-warning"><?=$pending[0]['num'] ?></span></a></li>
+				            		<li><a href="<?= base_url('requisition/processed'); ?>">Processed <span class="label label-success"><?=$processed[0]['processed'] ?></span></a></li>
+				            		<li><a href="<?= base_url('requisition/approved'); ?>">Approved <span class="label label-danger"><?=$approved[0]['approved'] ?></span></a></li>
 				            		<li><a href="<?= base_url('requisition/form'); ?>">New Requisition</a></li>
 				            		<li><a href="<?= base_url('requisition/finance'); ?>">Finance</a></li>
 				            		<li><a href="<?= base_url('index.php/welcome/history'); ?>">Reports</a></li>

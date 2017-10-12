@@ -7,6 +7,7 @@ class Roles extends CI_Controller {
 		parent::__construct();
 		$this->load->model('admin/Steps_Model','Steps');
 		$this->load->model('admin/Roles_Model','Roles');
+		$this->load->model('Sandbox','Sandbox');
 		$this->output->enable_profiler(TRUE);
 	}
 	
@@ -16,7 +17,11 @@ class Roles extends CI_Controller {
 	}
 	
 	function list() {
+		$data['User'] = 79;
 		
+		$data['pending'] = $this->Sandbox->countRequisitions($data['User'], true );
+		$data['processed'] = $this->Sandbox->countProcessedRequisitions($data['User'], true );
+		$data['approved'] = $this->Sandbox->countapprovedRequisitions($data['User'], true );
 		$data['Roles'] =$this->Roles->listAll();
 		
 		$data['content'] = 'admin/roles/index_v';

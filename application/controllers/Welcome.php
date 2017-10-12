@@ -11,10 +11,11 @@ class Welcome extends CI_Controller {
 
 	public function index()
 	{
-		//$data['Students'] = $this->Sandbox->getStudents();
-		//$this->load->view('welcome_message',$data);
-
-		//$this->Sandbox->genRequisition();
+		$data['User'] = 79;
+				
+		$data['pending'] = $this->Sandbox->countRequisitions($data['User'], true );
+		$data['processed'] = $this->Sandbox->countProcessedRequisitions($data['User'], true );
+		$data['approved'] = $this->Sandbox->countapprovedRequisitions($data['User'], true );
 		$data['content'] = 'blank';
 		$this->load->view('template/main_template',$data);
 	}
@@ -61,11 +62,21 @@ class Welcome extends CI_Controller {
 	}
 	
 	public function managePayees(){
+		$data['User'] = 79;
+		
+		$data['pending'] = $this->Sandbox->countRequisitions($data['User'], true );
+		$data['processed'] = $this->Sandbox->countProcessedRequisitions($data['User'], true );
+		$data['approved'] = $this->Sandbox->countapprovedRequisitions($data['User'], true );
 		$data['content'] = 'admin/manage_payees_v';
 		$this->load->view('template/main_template',$data);
 	}
 	
 	public function manageProcesses(){
+		$data['User'] = 79;
+		
+		$data['pending'] = $this->Sandbox->countRequisitions($data['User'], true );
+		$data['processed'] = $this->Sandbox->countProcessedRequisitions($data['User'], true );
+		$data['approved'] = $this->Sandbox->countapprovedRequisitions($data['User'], true );
 		$data['content'] = 'admin/manage_processes_v';
 		$this->load->view('template/main_template',$data);
 	}
@@ -81,6 +92,11 @@ class Welcome extends CI_Controller {
 	}
 	
 	public function history(){
+		$data['User'] = 79;
+		
+		$data['pending'] = $this->Sandbox->countRequisitions($data['User'], true );
+		$data['processed'] = $this->Sandbox->countProcessedRequisitions($data['User'], true );
+		$data['approved'] = $this->Sandbox->countapprovedRequisitions($data['User'], true );
 		$data['content'] = 'users/history_v';
 		$this->load->view('template/main_template',$data);
 	}
